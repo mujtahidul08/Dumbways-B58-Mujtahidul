@@ -14,12 +14,26 @@ function getDuration(startDate, endDate) {
   const start = new Date(startDate);
   const end = new Date(endDate);
 
-  const duration = Math.abs(end - start); // Menghitung selisih dalam milidetik
-
+  const duration = Math.floor(end - start); // Menghitung selisih dalam milidetik
+  
+  // Menghitung jumlah hari
+  const distanceDays = Math.floor(duration/(1000*60*60*24));
   // Menghitung jumlah bulan
-  const months = Math.floor(duration / (1000 * 60 * 60 * 24 * 30));
+  const distanceMonth = Math.floor(duration / (1000 * 60 * 60 * 24 * 30));
+  // Menghitung jumlah tahun
+  const distanceYear = Math.floor(duration / (1000 * 60 * 60 * 24 * 30* 365));
 
-  return months === 1 ? "Satu bulan" : `${months} bulan`;
+  console.log(distanceDays);
+  console.log(distanceMonth);
+  console.log(distanceYear);
+
+  if (distanceDays < 31) {
+    return `${distanceDays} Hari`;
+  } else if (distanceMonth < 366) {
+    return `${distanceMonth} Bulan`;
+  } else if (distanceYear > 365) {
+    return `${distanceYear} Tahun`;
+  } 
 }
 
 function getFullTime(tanggal) {
@@ -142,7 +156,7 @@ function renderBlog() {
                 </div>
                 <div class="blog-content">
                   <h1>
-                    <a href="blog-detail.html" target="_black">${dataBlog[index].title}</a>
+                    <a href="blogDetail.html" target="_black">${dataBlog[index].title}</a>
                   </h1>
                   <div class="detail-blog">
                     ${getFullTime(dataBlog[index].postAt)} | ${dataBlog[index].author}
